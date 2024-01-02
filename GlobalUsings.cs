@@ -1,6 +1,5 @@
 global using System;
 global using System.Collections.Generic;
-global using System.IO;
 global using System.Reflection;
 global using BoneLib;
 global using MelonLoader;
@@ -11,6 +10,10 @@ global using BoneLib.Notifications;
 global using UnityEngine;
 global using MarrowUtils.Menu;
 global using MarrowUtils.Utilities;
+global using MarrowUtils.Utilities.LevelReloader;
+global using MarrowUtils.Utilities.Random;
+global using MarrowUtils.Utilities.TheJanitor;
+global using MarrowUtils.Utilities.WarehouseScanner;
 global using MarrowUtils.Utilities.WarehouseScanner.Monobehaviours;
 global using SLZ.Marrow.Pool;
 global using SLZ.Marrow.SceneStreaming;

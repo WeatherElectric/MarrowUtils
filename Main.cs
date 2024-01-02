@@ -1,8 +1,4 @@
-﻿using MarrowUtils.Utilities.LevelReloader;
-using MarrowUtils.Utilities.TheJanitor;
-using MarrowUtils.Utilities.WarehouseScanner;
-
-namespace MarrowUtils;
+﻿namespace MarrowUtils;
 
 public class Main : MelonMod
 {
@@ -35,6 +31,7 @@ public class Main : MelonMod
         _ = new LevelReloader();
         _ = new Janitor();
         _ = new WarehouseScanner();
+        _ = new RandomStuff();
     }
 
     public override void OnUpdate()
