@@ -1,5 +1,6 @@
 ﻿namespace MarrowUtils.Utilities;
 
+// my monobehaviour. MINE.
 internal abstract class Utility
 {
     private static readonly List<Utility> Instances = new();

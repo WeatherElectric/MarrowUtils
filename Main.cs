@@ -7,10 +7,10 @@ namespace MarrowUtils;
 public class Main : MelonMod
 {
     internal const string Name = "MarrowUtils";
-    internal const string Description = "Template Mod";
+    internal const string Description = "A collection of utilities for BONELAB.";
     internal const string Author = "SoulWithMae";
     internal const string Company = "Weather Electric";
-    internal const string Version = "0.0.1";
+    internal const string Version = "1.0.0";
     internal const string DownloadLink = null;
 
     internal static MenuCategory MenuCat { get; private set; }
