@@ -75,6 +75,7 @@ internal class Janitor : Utility
     
     protected override void Start()
     {
+        ModConsole.Msg("Loading The Janitor...", 1);
         _fusionInstalled = HelperMethods.CheckIfAssemblyLoaded("labfusion");
     }
 

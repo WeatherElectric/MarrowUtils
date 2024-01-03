@@ -2,6 +2,11 @@
 
 internal class LevelReloader : Utility
 {
+    protected override void Start()
+    {
+        ModConsole.Msg("Loading LevelReloader...", 1);
+    }
+    
     protected override void CreateMenu()
     {
         var menu = Main.MenuCat.CreateSubPanel("Level Reloader", Color.cyan);

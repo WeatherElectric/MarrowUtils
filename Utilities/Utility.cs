@@ -1,6 +1,4 @@
 ﻿namespace MarrowUtils.Utilities;
-using System;
-using System.Linq;
 
 // my monobehaviour. MINE.
 internal abstract class Utility
@@ -41,9 +39,12 @@ internal abstract class Utility
     
     public static void Initialize()
     {
+        _ = new LevelReloader.LevelReloader();
+        _ = new RandomStuff();
+        _ = new WarehouseScanner.WarehouseScanner();
+        _ = new Janitor();
         foreach (var instance in Instances)
         {
-            Activator.CreateInstance(instance.GetType());
             instance.Start();
             instance.CreateMenu();
         }

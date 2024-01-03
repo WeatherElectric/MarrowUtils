@@ -6,6 +6,7 @@ internal class WarehouseScanner : Utility
     
     protected override void Start()
     {
+        ModConsole.Msg("Loading Warehouse Scanner...", 1);
         Assets.Load();
     }
 

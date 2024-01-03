@@ -2,6 +2,10 @@
 
 internal class RandomStuff : Utility
 {
+    protected override void Start()
+    {
+        ModConsole.Msg("Loading RandomStuff...", 1);
+    }
     protected override void CreateMenu()
     {
         var randomCat = Main.MenuCat.CreateSubPanel("Random Stuff", Color.yellow);
