@@ -9,7 +9,7 @@ internal abstract class Utility
 {
     private static readonly List<Utility> Instances = new();
 
-    protected Utility()
+    protected internal Utility()
     {
         Instances.Add(this);
     }
@@ -43,11 +43,13 @@ internal abstract class Utility
     
     public static void Initialize()
     {
-        _ = new LevelReloader.LevelReloader();
-        _ = new RandomStuff();
-        _ = new WarehouseScanner.WarehouseScanner();
-        _ = new Janitor();
-        _ = new Teleporter();
+        // automatically create instances of all utilities
+        foreach (var type in Main.CurrAsm.GetTypes())
+        {
+            if (type.IsAbstract || !type.IsSubclassOf(typeof(Utility))) continue;
+            Activator.CreateInstance(type);
+        }
+        
         foreach (var instance in Instances)
         {
             instance.Start();

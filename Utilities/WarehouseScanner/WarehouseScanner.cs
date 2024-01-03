@@ -27,16 +27,14 @@ internal class WarehouseScanner : Utility
     
     private static void Despawn()
     {
-        if (_isSpawned) return;
+        if (!_isSpawned) return;
         // IM SO SMART I KNEW THE INSTANCE WOULD BE USEFUL
-        Object.Destroy(Scanner.Instance.gameObject);
+        Object.Destroy(Scanner.Object);
         _isSpawned = false;
     }
     
     protected override void OnLevelUnload()
     {
-        // in case destroy doesnt get called by unloading a scene
-        Scanner.PostDestroy();
         _isSpawned = false;
     }
 }

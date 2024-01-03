@@ -3,12 +3,7 @@
 [RegisterTypeInIl2Cpp]
 public class Scanner : MonoBehaviour
 {
-    public static Scanner Instance { get; private set; }
-
-    internal static void PostDestroy()
-    {
-        Instance = null;
-    }
+    public static GameObject Object { get; private set; }
     
     private Transform _firePoint;
     private AudioSource _successSound;
@@ -18,7 +13,7 @@ public class Scanner : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
+        Object = gameObject;
     }
     
     private void Start()
@@ -28,10 +23,10 @@ public class Scanner : MonoBehaviour
         _firePoint = transform.Find("FirePoint");
         _titleText = transform.Find("Text/Title").GetComponent<TextMeshPro>();
         _barcodeText = transform.Find("Text/Barcode").GetComponent<TextMeshPro>();
-        _successSound = transform.GetComponent<AudioSource>();
+        _successSound = gameObject.GetComponent<AudioSource>();
         // since this is a code mod I can put the game's mixers YEAA FUCK YOU SDK MODDERS I GET TO DO THIS!
         _successSound.outputAudioMixerGroup = Audio.SFXMixer;
-        _impactSfx = transform.Find("ImpactSFX").GetComponent<ImpactSFX>();
+        _impactSfx = gameObject.GetComponent<ImpactSFX>();
         _impactSfx.outputMixer = Audio.SFXMixer;
     }
 
@@ -111,11 +106,6 @@ public class Scanner : MonoBehaviour
         // NO! GO AWAY TEXT! FUCK YOU!
         _titleText.text = "";
         _barcodeText.text = "";
-    }
-    
-    private void OnDestroy()
-    {
-        Instance = null;
     }
     
     // needed to register in il2cpp, otherwise useless
