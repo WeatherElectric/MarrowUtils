@@ -84,6 +84,7 @@
         <Compile Include="Melon\ModConsole.cs"/>
         <Compile Include="Melon\Preferences.cs"/>
         <Compile Include="Properties\AssemblyInfo.cs"/>
+        <Compile Include="Utilities\EmergencyRelocation\Teleporter.cs" />
         <Compile Include="Utilities\LevelReloader\LevelReloader.cs" />
         <Compile Include="Utilities\RandomStuff\RandomStuff.cs" />
         <Compile Include="Utilities\TheJanitor\Janitor.cs" />

@@ -1,6 +1,7 @@
 ﻿namespace MarrowUtils.Utilities;
 
 // my monobehaviour. MINE.
+// i know i can do this all without this class, but this is convienent
 internal abstract class Utility
 {
     private static readonly List<Utility> Instances = new();
@@ -43,6 +44,7 @@ internal abstract class Utility
         _ = new RandomStuff();
         _ = new WarehouseScanner.WarehouseScanner();
         _ = new Janitor();
+        _ = new Teleporter();
         foreach (var instance in Instances)
         {
             instance.Start();

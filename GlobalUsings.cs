@@ -10,6 +10,7 @@ global using BoneLib.Notifications;
 global using UnityEngine;
 global using MarrowUtils.Menu;
 global using MarrowUtils.Utilities;
+global using MarrowUtils.Utilities.EmergencyRelocation;
 global using MarrowUtils.Utilities.Random;
 global using MarrowUtils.Utilities.TheJanitor;
 global using MarrowUtils.Utilities.WarehouseScanner.Monobehaviours;
