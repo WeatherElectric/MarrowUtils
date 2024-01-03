@@ -16,22 +16,11 @@ public class Main : MelonMod
     {
         ModConsole.Setup(LoggerInstance);
         Preferences.Setup();
-        RegisterUtilities();
         var mainCat = MenuManager.CreateCategory("Weather Electric", "#6FBDFF");
         MenuCat = mainCat.CreateCategory("Marrow Utils", Color.gray);
-        Utility.StartAll();
-        Utility.CreateMenus();
+        Utility.Initialize();
         Hooking.OnLevelInitialized += OnLevelLoad;
         Hooking.OnLevelUnloaded += OnLevelUnload;
-    }
-
-    private static void RegisterUtilities()
-    {
-        ModConsole.Msg("Registering utilities...", 1);
-        _ = new LevelReloader();
-        _ = new Janitor();
-        _ = new WarehouseScanner();
-        _ = new RandomStuff();
     }
 
     public override void OnUpdate()

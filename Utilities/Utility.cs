@@ -1,4 +1,6 @@
 ﻿namespace MarrowUtils.Utilities;
+using System;
+using System.Linq;
 
 // my monobehaviour. MINE.
 internal abstract class Utility
@@ -37,12 +39,13 @@ internal abstract class Utility
     /// </summary>
     protected virtual void Start(){}
     
-    
-    public static void StartAll()
+    public static void Initialize()
     {
         foreach (var instance in Instances)
         {
+            Activator.CreateInstance(instance.GetType());
             instance.Start();
+            instance.CreateMenu();
         }
     }
     
@@ -67,14 +70,6 @@ internal abstract class Utility
         foreach (var instance in Instances)
         {
             instance.Update();
-        }
-    }
-    
-    public static void CreateMenus()
-    {
-        foreach (var instance in Instances)
-        {
-            instance.CreateMenu();
         }
     }
 }
