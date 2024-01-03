@@ -2,6 +2,9 @@
 
 // my monobehaviour. MINE.
 // i know i can do this all without this class, but this is convienent
+/// <summary>
+/// Utility class used for managing various mini-mods. Somewhat similar to Monobehaviours, with a Start() and Update().
+/// </summary>
 internal abstract class Utility
 {
     private static readonly List<Utility> Instances = new();
