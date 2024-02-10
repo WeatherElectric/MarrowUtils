@@ -7,10 +7,12 @@ internal static class Preferences
     public static readonly MelonPreferences_Category GlobalCategory = MelonPreferences.CreateCategory("Global");
     public static readonly MelonPreferences_Category JanitorCategory = MelonPreferences.CreateCategory("TheJanitor");
     public static readonly MelonPreferences_Category ReloaderCategory = MelonPreferences.CreateCategory("LevelReloader");
+    public static readonly MelonPreferences_Category UnredactedCategory = MelonPreferences.CreateCategory("Unredacted");
 
     public static MelonPreferences_Entry<int> LoggingMode { get; set; }
     public static MelonPreferences_Entry<bool> OverrideFusionCheck { get; set; }
     public static MelonPreferences_Entry<bool> EnableReloader { get; set; }
+    public static MelonPreferences_Entry<bool> UnredactCrates { get; set; }
 
     public static void Setup()
     {
@@ -21,6 +23,9 @@ internal static class Preferences
         JanitorCategory.SetFilePath(MelonUtils.UserDataDirectory + "/WeatherElectric.cfg");
         JanitorCategory.SaveToFile(false);
         EnableReloader = ReloaderCategory.GetEntry<bool>("EnabledReloader") ?? ReloaderCategory.CreateEntry("EnabledReloader", true, "Enabled", "Whether or not to check for Control + R."); 
+        UnredactCrates = UnredactedCategory.GetEntry<bool>("UnredactCrates") ?? UnredactedCategory.CreateEntry("UnredactCrates", true, "Unredact Crates", "Whether or not to unredact crates.");
+        UnredactedCategory.SetFilePath(MelonUtils.UserDataDirectory + "/WeatherElectric.cfg");
+        UnredactedCategory.SaveToFile(false);
         ModConsole.Msg("Finished preferences setup for MarrowUtils", 1);
     }
 }

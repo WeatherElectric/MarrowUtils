@@ -23,6 +23,20 @@ public class Main : MelonMod
         Hooking.OnLevelUnloaded += OnLevelUnload;
     }
 
+    public override void OnSceneWasInitialized(int buildIndex, string sceneName)
+    {
+        if (sceneName.ToUpper().Contains("BOOTSTRAP"))
+        {
+            AssetWarehouse.OnReady(new Action(WarehouseLoaded));
+        }
+    }
+
+    private static void WarehouseLoaded()
+    {
+        var pallets = AssetWarehouse.Instance.GetPallets();
+        Utility.WarehouseLoaded(pallets);
+    }
+
     public override void OnUpdate()
     {
         Utility.OnUpdate();

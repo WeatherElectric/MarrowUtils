@@ -53,7 +53,7 @@ public class Scanner : MonoBehaviour
         // cancel any previous invokes to prevent the text from disappearing too early
         CancelInvoke(nameof(HideText));
         Invoke(nameof(HideText), 2f);
-        ModConsole.Msg($"{poolee.gameObject.name}'s barcode: {barcode}, title: {title}");
+        ModConsole.Msg($"[WarehouseScanner] {poolee.gameObject.name}'s barcode: {barcode}, title: {title}");
     }
 
     public void ScanMap()
@@ -67,7 +67,7 @@ public class Scanner : MonoBehaviour
         _barcodeText.text = barcode;
         CancelInvoke(nameof(HideText));
         Invoke(nameof(HideText), 2f);
-        ModConsole.Msg($"Map barcode: {barcode}, title: {title}");
+        ModConsole.Msg($"[WarehouseScanner] Map barcode: {barcode}, title: {title}");
     }
 
     private void ScanNPC(RaycastHit hit)
@@ -98,7 +98,7 @@ public class Scanner : MonoBehaviour
         _barcodeText.text = barcode;
         CancelInvoke(nameof(HideText));
         Invoke(nameof(HideText), 2f);
-        ModConsole.Msg($"Avatar's barcode: {barcode}, title: {title}");
+        ModConsole.Msg($"[WarehouseScanner] Avatar's barcode: {barcode}, title: {title}");
     }
 
     private void HideText()

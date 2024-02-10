@@ -68,10 +68,28 @@ internal class Janitor : Utility
         PopupLength = 1f,
         ShowTitleOnPopup = true
     };
+    private static Notification UtilityGunsCleared { get; } = new()
+    {
+        Title = "The Janitor",
+        Message = "Cleared all utility guns!",
+        Type = NotificationType.Success,
+        PopupLength = 1f,
+        ShowTitleOnPopup = true
+    };
     
     #endregion
-
+    
+    #region Variables
+    
     private static bool _fusionInstalled;
+    
+    private static ClearType _clearType = ClearType.Everything;
+    
+    private static readonly List<SpawnableCratePlacer> SpawnableCratePlacers = new();
+    
+    #endregion
+    
+    #region Derived Class Overrides
     
     protected override void Start()
     {
@@ -88,7 +106,12 @@ internal class Janitor : Utility
         janitorCat.CreateBoolPreference("Override Fusion Check", Color.red, Preferences.OverrideFusionCheck, Preferences.JanitorCategory);
     }
     
-    private static ClearType _clearType = ClearType.Everything;
+    protected override void OnLevelUnload()
+    {
+        SpawnableCratePlacers.Clear();
+    }
+    
+    #endregion
 
     private static void UpdateType(ClearType clearType)
     {
@@ -107,6 +130,9 @@ internal class Janitor : Utility
             case ClearType.Everything:
                 ClearEverything();
                 break;
+            case ClearType.UtilityGuns:
+                ClearUtilGuns();
+                break;
             case ClearType.Npcs:
                 ClearNPCs();
                 break;
@@ -123,19 +149,14 @@ internal class Janitor : Utility
                 ClearDecals();
                 break;
             default:
-                ModConsole.Error("Invalid clear type!");
+                ModConsole.Error("[TheJanitor] Invalid clear type!");
                 break;
         }
     }
     
-    private static readonly List<SpawnableCratePlacer> SpawnableCratePlacers = new();
     
-    protected override void OnLevelUnload()
-    {
-        SpawnableCratePlacers.Clear();
-    }
-
-
+    #region Clearing
+    
     private static void Reset()
     {
         if (_fusionInstalled && !Preferences.OverrideFusionCheck.Value && (LabFusion.Network.NetworkInfo.IsClient || LabFusion.Network.NetworkInfo.IsServer) && _clearType != ClearType.Decals)
@@ -158,8 +179,6 @@ internal class Janitor : Utility
         Notifier.Send(ResetMap);
     }
     
-    #region Clearing
-    
     private static void ClearEverything(bool nonotif = false)
     {
         var poolees = Object.FindObjectsOfType<AssetPoolee>();
@@ -170,6 +189,20 @@ internal class Janitor : Utility
             poolee.Despawn();
         }
         if (!nonotif) Notifier.Send(EverythingCleared);
+    }
+
+    private static void ClearUtilGuns()
+    {
+        var poolees = Object.FindObjectsOfType<AssetPoolee>();
+        if (poolees.Length == 0) return;
+        foreach (var poolee in poolees)
+        {
+            if (poolee.spawnableCrate.Barcode == CommonBarcodes.Misc.NimbusGun || poolee.spawnableCrate.Barcode == CommonBarcodes.Misc.SpawnGun || poolee.spawnableCrate.Barcode == CommonBarcodes.Misc.Constrainer) return;
+            {
+                poolee.Despawn();
+            }
+        }
+        Notifier.Send(UtilityGunsCleared);
     }
     
     private static void ClearNPCs()
@@ -247,6 +280,7 @@ internal class Janitor : Utility
     private enum ClearType
     {
         Everything,
+        UtilityGuns,
         Npcs,
         Guns,
         Melee,

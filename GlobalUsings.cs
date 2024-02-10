@@ -21,3 +21,4 @@ global using SLZ.Rig;
 global using SLZ.SFX;
 global using TMPro;
 global using Object = UnityEngine.Object;
+global using PalletList = Il2CppSystem.Collections.Generic.List<SLZ.Marrow.Warehouse.Pallet>;

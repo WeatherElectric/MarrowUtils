@@ -12,4 +12,5 @@
 	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=I_003A_005CGitHub_005CRider_005CMarrowUtils_005CReferences_005CUnityEngine_002EAssetBundleModule_002Edll/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=I_003A_005CGitHub_005CRider_005CMarrowUtils_005CReferences_005CUnityEngine_002EAudioModule_002Edll/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=I_003A_005CGitHub_005CRider_005CMarrowUtils_005CReferences_005CUnityEngine_002ECoreModule_002Edll/@EntryIndexedValue">True</s:Boolean>
-	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=I_003A_005CGitHub_005CRider_005CMarrowUtils_005CReferences_005CUnityEngine_002EPhysicsModule_002Edll/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>
+	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=I_003A_005CGitHub_005CRider_005CMarrowUtils_005CReferences_005CUnityEngine_002EPhysicsModule_002Edll/@EntryIndexedValue">True</s:Boolean>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=45D76E99_002DD2DC_002D47EE_002D9CDE_002DE84CEF86E4F9_002Fd_003AUtilities_002Fd_003AWarehouseScanner_002Ff_003AWarehouseScanner_002Ecs/@EntryIndexedValue">ExplicitlyExcluded</s:String></wpf:ResourceDictionary>

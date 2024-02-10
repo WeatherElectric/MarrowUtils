@@ -40,6 +40,10 @@ internal abstract class Utility
     /// Called when the mod is initialized
     /// </summary>
     protected virtual void Start(){}
+    /// <summary>
+    /// Called when AssetWarehouse is initialized
+    /// </summary>
+    protected virtual void OnWarehouseInit(Il2CppSystem.Collections.Generic.List<Pallet> loadedPalletList){}
     
     public static void Initialize()
     {
@@ -78,6 +82,14 @@ internal abstract class Utility
         foreach (var instance in Instances)
         {
             instance.Update();
+        }
+    }
+    
+    public static void WarehouseLoaded(PalletList loadedPalletList)
+    {
+        foreach (var instance in Instances)
+        {
+            instance.OnWarehouseInit(loadedPalletList);
         }
     }
 }

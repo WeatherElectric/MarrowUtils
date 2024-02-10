@@ -88,6 +88,7 @@
         <Compile Include="Utilities\LevelReloader\LevelReloader.cs" />
         <Compile Include="Utilities\RandomStuff\RandomStuff.cs" />
         <Compile Include="Utilities\TheJanitor\Janitor.cs" />
+        <Compile Include="Utilities\Unredacted\Unredacted.cs" />
         <Compile Include="Utilities\Utility.cs" />
         <Compile Include="Utilities\WarehouseScanner\Monobehaviours\Scanner.cs" />
         <Compile Include="Utilities\WarehouseScanner\WarehouseScanner.cs" />
