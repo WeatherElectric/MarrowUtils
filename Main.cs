@@ -7,7 +7,7 @@ public class Main : MelonMod
     internal const string Author = "SoulWithMae";
     internal const string Company = "Weather Electric";
     internal const string Version = "1.0.0";
-    internal const string DownloadLink = null;
+    internal const string DownloadLink = "https://bonelab.thunderstore.io/package/SoulWithMae/MarrowUtils/";
 
     internal static MenuCategory MenuCat { get; private set; }
     internal static Assembly CurrAsm { get; } = Assembly.GetExecutingAssembly();
@@ -40,6 +40,16 @@ public class Main : MelonMod
     public override void OnUpdate()
     {
         Utility.OnUpdate();
+    }
+
+    public override void OnLateUpdate()
+    {
+        Utility.OnLateUpdate();
+    }
+    
+    public override void OnFixedUpdate()
+    {
+        Utility.OnFixedUpdate();
     }
 
     private static void OnLevelLoad(LevelInfo levelInfo)

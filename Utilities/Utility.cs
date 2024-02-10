@@ -44,6 +44,14 @@ internal abstract class Utility
     /// Called when AssetWarehouse is initialized
     /// </summary>
     protected virtual void OnWarehouseInit(Il2CppSystem.Collections.Generic.List<Pallet> loadedPalletList){}
+    /// <summary>
+    /// Called every frame after all Update() calls
+    /// </summary>
+    protected virtual void LateUpdate(){}
+    /// <summary>
+    /// Called every frame, and instructing Unity to do physics simulations
+    /// </summary>
+    protected virtual void FixedUpdate(){}
     
     public static void Initialize()
     {
@@ -84,7 +92,23 @@ internal abstract class Utility
             instance.Update();
         }
     }
-    
+
+    public static void OnLateUpdate()
+    {
+        foreach (var instance in Instances)
+        {
+            instance.LateUpdate();
+        }
+    }
+
+    public static void OnFixedUpdate()
+    {
+        foreach (var instance in Instances)
+        {
+            instance.FixedUpdate();
+        }
+    }
+
     public static void WarehouseLoaded(PalletList loadedPalletList)
     {
         foreach (var instance in Instances)

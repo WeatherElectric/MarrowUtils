@@ -11,6 +11,7 @@ internal class Unredacted : Utility
         if (!Preferences.UnredactCrates.Value) return;
         foreach (var pallet in loadedPalletList)
         {
+            
             var crates = pallet.Crates;
             foreach (var crate in crates)
             {
