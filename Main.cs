@@ -17,10 +17,13 @@ public class Main : MelonMod
         ModConsole.Setup(LoggerInstance);
         Preferences.Setup();
         var mainCat = MenuManager.CreateCategory("Weather Electric", "#6FBDFF");
-        MenuCat = mainCat.CreateCategory("Marrow Utils", Color.gray);
+        MenuCat = mainCat.CreateCategory("Marrow Utils", "#009dff");
         Utility.Initialize();
         Hooking.OnLevelInitialized += OnLevelLoad;
         Hooking.OnLevelUnloaded += OnLevelUnload;
+#if DEBUG
+        ModConsole.Warning("This is a debug build! Expect unstable behavior!");
+#endif
     }
 
     public override void OnSceneWasInitialized(int buildIndex, string sceneName)
