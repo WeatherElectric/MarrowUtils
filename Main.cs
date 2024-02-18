@@ -37,7 +37,8 @@ public class Main : MelonMod
     private static void WarehouseLoaded()
     {
         var pallets = AssetWarehouse.Instance.GetPallets();
-        Utility.WarehouseLoaded(pallets);
+        var crates = AssetWarehouse.Instance.GetCrates();
+        Utility.WarehouseLoaded(pallets, crates);
     }
 
     public override void OnUpdate()

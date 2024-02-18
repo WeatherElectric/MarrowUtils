@@ -43,7 +43,11 @@ internal abstract class Utility
     /// <summary>
     /// Called when AssetWarehouse is initialized
     /// </summary>
-    protected virtual void OnWarehouseInit(Il2CppSystem.Collections.Generic.List<Pallet> loadedPalletList){}
+    protected virtual void OnWarehouseInit(){}
+    protected virtual void OnWarehouseInit(PalletList loadedPalletList){}
+    protected virtual void OnWarehouseInit(PalletList loadedPalletList, CrateList crateList){}
+    protected virtual void OnWarehouseInit(CrateList crateList){}
+    
     /// <summary>
     /// Called every frame after all Update() calls
     /// </summary>
@@ -109,11 +113,14 @@ internal abstract class Utility
         }
     }
 
-    public static void WarehouseLoaded(PalletList loadedPalletList)
+    public static void WarehouseLoaded(PalletList loadedPalletList, CrateList crateList)
     {
         foreach (var instance in Instances)
         {
+            instance.OnWarehouseInit();
             instance.OnWarehouseInit(loadedPalletList);
+            instance.OnWarehouseInit(crateList);
+            instance.OnWarehouseInit(loadedPalletList, crateList);
         }
     }
 }

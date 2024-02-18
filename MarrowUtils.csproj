@@ -34,6 +34,9 @@
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
+        <Reference Include="0Harmony">
+          <HintPath>..\TheLibraryElectric\References\.NET 6\0Harmony.dll</HintPath>
+        </Reference>
         <Reference Include="Assembly-CSharp">
             <HintPath>References\Assembly-CSharp.dll</HintPath>
         </Reference>
@@ -92,6 +95,7 @@
         <Compile Include="Utilities\Utility.cs" />
         <Compile Include="Utilities\WarehouseScanner\Monobehaviours\Scanner.cs" />
         <Compile Include="Utilities\WarehouseScanner\WarehouseScanner.cs" />
+        <Compile Include="Utilities\WeaponRandomizer\WeaponRandomizer.cs" />
     </ItemGroup>
     <ItemGroup>
       <EmbeddedResource Include="Utilities\WarehouseScanner\Resources\Android.bundle" />

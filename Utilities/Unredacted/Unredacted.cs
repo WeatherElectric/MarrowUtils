@@ -6,12 +6,12 @@ internal class Unredacted : Utility
     {
         ModConsole.Msg("Loading Unredacted...", 1);
     }
+    
     protected override void OnWarehouseInit(PalletList loadedPalletList)
     {
         if (!Preferences.UnredactCrates.Value) return;
         foreach (var pallet in loadedPalletList)
         {
-            
             var crates = pallet.Crates;
             foreach (var crate in crates)
             {
