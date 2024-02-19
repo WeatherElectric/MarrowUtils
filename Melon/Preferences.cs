@@ -9,12 +9,14 @@ internal static class Preferences
     public static readonly MelonPreferences_Category ReloaderCategory = MelonPreferences.CreateCategory("LevelReloader");
     public static readonly MelonPreferences_Category UnredactedCategory = MelonPreferences.CreateCategory("Unredacted");
     public static readonly MelonPreferences_Category RandomizerCategory = MelonPreferences.CreateCategory("WeaponRandomizer");
+    public static readonly MelonPreferences_Category QualityOfLifeAssuranceCategory = MelonPreferences.CreateCategory("QualityOfLifeAssurance");
 
     public static MelonPreferences_Entry<int> LoggingMode { get; set; }
     public static MelonPreferences_Entry<bool> OverrideFusionCheck { get; set; }
     public static MelonPreferences_Entry<bool> EnableReloader { get; set; }
     public static MelonPreferences_Entry<bool> UnredactCrates { get; set; }
     public static MelonPreferences_Entry<bool> RandomizeWeapons { get; set; }
+    public static MelonPreferences_Entry<bool> EnableItemPatches { get; set; }
 
     public static void Setup()
     {
@@ -31,6 +33,9 @@ internal static class Preferences
         RandomizeWeapons = RandomizerCategory.GetEntry<bool>("RandomizeWeapons") ?? RandomizerCategory.CreateEntry("RandomizeWeapons", false, "Randomize Weapons", "Whether or not to randomize weapons.");
         RandomizerCategory.SetFilePath(MelonUtils.UserDataDirectory + "/WeatherElectric.cfg");
         RandomizerCategory.SaveToFile(false);
+        EnableItemPatches = QualityOfLifeAssuranceCategory.GetEntry<bool>("EnableItemPatches") ?? QualityOfLifeAssuranceCategory.CreateEntry("EnableItemPatches", true, "Enable Item Patches", "Whether or not to enable small item fixes.");
+        QualityOfLifeAssuranceCategory.SetFilePath(MelonUtils.UserDataDirectory + "/WeatherElectric.cfg");
+        QualityOfLifeAssuranceCategory.SaveToFile(false);
         ModConsole.Msg("Finished preferences setup for MarrowUtils", 1);
     }
 }

@@ -1,5 +1,5 @@
-﻿using HarmonyLib;
-using LabFusion.Network;
+﻿using LabFusion.Network;
+using static UnityEngine.Random;
 
 namespace MarrowUtils.Utilities.WeaponRandomizer;
 
@@ -7,12 +7,12 @@ internal class WeaponRandomizer : Utility
 {
     private static bool _fusionInstalled;
 
-    private static readonly List<Crate> _rifles = new();
-    private static readonly List<Crate> _pistols = new();
-    private static readonly List<Crate> _bluntMelee = new();
-    private static readonly List<Crate> _bladeMelee = new();
-    private static readonly List<Crate> _smgs = new();
-    private static readonly List<Crate> _shotguns = new();
+    private static readonly List<Crate> Rifles = new();
+    private static readonly List<Crate> Pistols = new();
+    private static readonly List<Crate> BluntMelee = new();
+    private static readonly List<Crate> BladeMelee = new();
+    private static readonly List<Crate> Smgs = new();
+    private static readonly List<Crate> Shotguns = new();
     
     protected override void Start()
     {
@@ -27,27 +27,27 @@ internal class WeaponRandomizer : Utility
             if (!crate.Tags.Contains("Weapon")) return;
             if (crate.Tags.Contains("Rifle"))
             {
-                _rifles.Add(crate);
+                Rifles.Add(crate);
             }
             else if (crate.Tags.Contains("Pistol"))
             {
-                _pistols.Add(crate);
+                Pistols.Add(crate);
             }
             else if (crate.Tags.Contains("Blunt"))
             {
-                _bluntMelee.Add(crate);
+                BluntMelee.Add(crate);
             }
             else if (crate.Tags.Contains("Blade"))
             {
-                _bladeMelee.Add(crate);
+                BladeMelee.Add(crate);
             }
             else if (crate.Tags.Contains("SMG"))
             {
-                _smgs.Add(crate);
+                Smgs.Add(crate);
             }
             else if (crate.Tags.Contains("Shotgun"))
             {
-                _shotguns.Add(crate);
+                Shotguns.Add(crate);
             }
         }
     }
@@ -56,29 +56,35 @@ internal class WeaponRandomizer : Utility
     {
         if (tags.Contains("Rifle"))
         {
-            return _rifles[UnityEngine.Random.Range(0, _rifles.Count)];
+            return Rifles[Range(0, Rifles.Count)];
         }
         if (tags.Contains("Pistol"))
         {
-            return _pistols[UnityEngine.Random.Range(0, _pistols.Count)];
+            return Pistols[Range(0, Pistols.Count)];
         }
         if (tags.Contains("Blunt"))
         {
-            return _bluntMelee[UnityEngine.Random.Range(0, _bluntMelee.Count)];
+            return BluntMelee[Range(0, BluntMelee.Count)];
         }
         if (tags.Contains("Blade"))
         {
-            return _bladeMelee[UnityEngine.Random.Range(0, _bladeMelee.Count)];
+            return BladeMelee[Range(0, BladeMelee.Count)];
         }
         if (tags.Contains("SMG"))
         {
-            return _smgs[UnityEngine.Random.Range(0, _smgs.Count)];
+            return Smgs[Range(0, Smgs.Count)];
         }
         if (tags.Contains("Shotgun"))
         {
-            return _shotguns[UnityEngine.Random.Range(0, _shotguns.Count)];
+            return Shotguns[Range(0, Shotguns.Count)];
         }
         return null;
+    }
+    
+    protected override void CreateMenu()
+    {
+        var menu = Main.MenuCat.CreateSubPanel("Weapon Randomizer", Color.green);
+        menu.CreateBoolPreference("Enable Randomization", Color.white, Preferences.RandomizeWeapons, Preferences.RandomizerCategory);
     }
 
     private static bool InFusionLobby()
@@ -87,11 +93,12 @@ internal class WeaponRandomizer : Utility
         return NetworkInfo.IsClient || NetworkInfo.IsServer;
     }
     
-    [HarmonyPatch(typeof(SpawnableCratePlacer), "Awake")]
-    private static class CratePlacerPatch
+    [HarmonyPatch(typeof(SpawnableCratePlacer))]
+    private static class CrateStart
     {
         // ReSharper disable once InconsistentNaming, harmony will fuck up if its not specifcally __instance
         [HarmonyPrefix]
+        [HarmonyPatch(nameof(SpawnableCratePlacer.PlaceSpawnable))]
         private static void Prefix(SpawnableCratePlacer __instance)
         {
             if (InFusionLobby()) return;
@@ -100,7 +107,25 @@ internal class WeaponRandomizer : Utility
             var crate = GetRandomWeapon(__instance.spawnableCrateReference.Crate.Tags);
             if (crate == null) return;
             var crateRef = new SpawnableCrateReference(crate.Barcode);
-            __instance.spawnableCrateReference = crateRef;
+            __instance.spawnable.crateRef = crateRef;
+        }
+    }
+    
+    [HarmonyPatch(typeof(SpawnableCratePlacer))]
+    private static class CratePlaced
+    {
+        // ReSharper disable once InconsistentNaming, harmony will fuck up if its not specifcally __instance
+        [HarmonyPrefix]
+        [HarmonyPatch(nameof(SpawnableCratePlacer.RePlaceSpawnable))]
+        private static void Prefix(SpawnableCratePlacer __instance)
+        {
+            if (InFusionLobby()) return;
+            if (!Preferences.RandomizeWeapons.Value) return;
+            if (!__instance.spawnableCrateReference.Crate.Tags.Contains("Weapon")) return;
+            var crate = GetRandomWeapon(__instance.spawnableCrateReference.Crate.Tags);
+            if (crate == null) return;
+            var crateRef = new SpawnableCrateReference(crate.Barcode);
+            __instance.spawnable.crateRef = crateRef;
         }
     }
 }

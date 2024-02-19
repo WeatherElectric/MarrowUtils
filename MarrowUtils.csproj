@@ -79,6 +79,9 @@
         <Reference Include="UnityEngine.PhysicsModule">
           <HintPath>References\UnityEngine.PhysicsModule.dll</HintPath>
         </Reference>
+        <Reference Include="UnityEngine.UI">
+          <HintPath>References\UnityEngine.UI.dll</HintPath>
+        </Reference>
     </ItemGroup>
     <ItemGroup>
         <Compile Include="BoneMenu\BoneMenuExtensions.cs"/>
@@ -89,6 +92,8 @@
         <Compile Include="Properties\AssemblyInfo.cs"/>
         <Compile Include="Utilities\EmergencyRelocation\Teleporter.cs" />
         <Compile Include="Utilities\LevelReloader\LevelReloader.cs" />
+        <Compile Include="Utilities\QOLAssurance\Monobehaviours\AlarmClock.cs" />
+        <Compile Include="Utilities\QOLAssurance\QOLAssurance.cs" />
         <Compile Include="Utilities\RandomStuff\RandomStuff.cs" />
         <Compile Include="Utilities\TheJanitor\Janitor.cs" />
         <Compile Include="Utilities\Unredacted\Unredacted.cs" />
@@ -100,6 +105,10 @@
     <ItemGroup>
       <EmbeddedResource Include="Utilities\WarehouseScanner\Resources\Android.bundle" />
       <EmbeddedResource Include="Utilities\WarehouseScanner\Resources\Windows.bundle" />
+    </ItemGroup>
+    <ItemGroup>
+      <EmbeddedResource Include="Utilities\QOLAssurance\Resources\Android.bundle" />
+      <EmbeddedResource Include="Utilities\QOLAssurance\Resources\Windows.bundle" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
     <PropertyGroup>

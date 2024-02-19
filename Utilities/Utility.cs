@@ -5,7 +5,7 @@
 /// <summary>
 /// Utility class used for managing various mini-mods. Somewhat similar to Monobehaviours, with a Start() and Update().
 /// </summary>
-internal abstract class Utility
+public abstract class Utility
 {
     private static readonly List<Utility> Instances = new();
 

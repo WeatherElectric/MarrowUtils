@@ -7,6 +7,7 @@ global using MarrowUtils.Melon;
 global using BoneLib.BoneMenu;
 global using BoneLib.BoneMenu.Elements;
 global using BoneLib.Notifications;
+global using HarmonyLib;
 global using UnityEngine;
 global using MarrowUtils.Menu;
 global using MarrowUtils.Utilities;
