@@ -56,6 +56,13 @@ public abstract class Utility
     /// Called every frame, and instructing Unity to do physics simulations
     /// </summary>
     protected virtual void FixedUpdate(){}
+    /// <summary>
+    /// Called when a spawnable is placed
+    /// </summary>
+    protected virtual void OnSpawnablePlaced(GameObject obj){}
+    protected virtual void OnSpawnablePlaced(AssetPoolee poolee){}
+    protected virtual void OnSpawnablePlaced(GameObject obj, AssetPoolee poolee){}
+    protected virtual void OnSpawnablePlaced(){}
     
     public static void Initialize()
     {
@@ -70,6 +77,17 @@ public abstract class Utility
         {
             instance.Start();
             instance.CreateMenu();
+        }
+    }
+
+    public static void SpawnablePlaced(AssetPoolee poolee, GameObject obj)
+    {
+        foreach (var instance in Instances)
+        {
+            instance.OnSpawnablePlaced();
+            instance.OnSpawnablePlaced(poolee);
+            instance.OnSpawnablePlaced(obj);
+            instance.OnSpawnablePlaced(obj, poolee);
         }
     }
     

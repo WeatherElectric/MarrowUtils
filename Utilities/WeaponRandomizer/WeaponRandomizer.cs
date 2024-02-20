@@ -52,31 +52,31 @@ internal class WeaponRandomizer : Utility
         }
     }
 
-    private static Crate GetRandomWeapon(Il2CppSystem.Collections.Generic.List<string> tags)
+    private static Barcode GetRandomWeapon(TagList tags)
     {
         if (tags.Contains("Rifle"))
         {
-            return Rifles[Range(0, Rifles.Count)];
+            return Rifles[Range(0, Rifles.Count)].Barcode;
         }
         if (tags.Contains("Pistol"))
         {
-            return Pistols[Range(0, Pistols.Count)];
+            return Pistols[Range(0, Pistols.Count)].Barcode;
         }
         if (tags.Contains("Blunt"))
         {
-            return BluntMelee[Range(0, BluntMelee.Count)];
+            return BluntMelee[Range(0, BluntMelee.Count)].Barcode;
         }
         if (tags.Contains("Blade"))
         {
-            return BladeMelee[Range(0, BladeMelee.Count)];
+            return BladeMelee[Range(0, BladeMelee.Count)].Barcode;
         }
         if (tags.Contains("SMG"))
         {
-            return Smgs[Range(0, Smgs.Count)];
+            return Smgs[Range(0, Smgs.Count)].Barcode;
         }
         if (tags.Contains("Shotgun"))
         {
-            return Shotguns[Range(0, Shotguns.Count)];
+            return Shotguns[Range(0, Shotguns.Count)].Barcode;
         }
         return null;
     }
@@ -84,7 +84,7 @@ internal class WeaponRandomizer : Utility
     protected override void CreateMenu()
     {
         var menu = Main.MenuCat.CreateSubPanel("Weapon Randomizer", Color.green);
-        menu.CreateBoolPreference("Enable Randomization", Color.white, Preferences.RandomizeWeapons, Preferences.RandomizerCategory);
+        menu.CreateBoolPreference("Enabled", Color.white, Preferences.RandomizeWeapons, Preferences.RandomizerCategory);
     }
 
     private static bool InFusionLobby()
@@ -92,40 +92,29 @@ internal class WeaponRandomizer : Utility
         if (!_fusionInstalled) return false;
         return NetworkInfo.IsClient || NetworkInfo.IsServer;
     }
-    
-    [HarmonyPatch(typeof(SpawnableCratePlacer))]
-    private static class CrateStart
+
+    protected override void OnSpawnablePlaced(AssetPoolee poolee)
     {
-        // ReSharper disable once InconsistentNaming, harmony will fuck up if its not specifcally __instance
-        [HarmonyPrefix]
-        [HarmonyPatch(nameof(SpawnableCratePlacer.PlaceSpawnable))]
-        private static void Prefix(SpawnableCratePlacer __instance)
+        if (CantRun()) return;
+        
+        var crate = GetRandomWeapon(poolee.spawnableCrate.Tags);
+        if (crate == null) return;
+        
+        var transform = poolee.transform;
+        var position = transform.position;
+        var rotation = transform.rotation;
+        
+        poolee.Despawn();
+        HelperMethods.SpawnCrate(crate, position, rotation, Vector3.one, false, _ => {});
+        return;
+
+        bool CantRun()
         {
-            if (InFusionLobby()) return;
-            if (!Preferences.RandomizeWeapons.Value) return;
-            if (!__instance.spawnableCrateReference.Crate.Tags.Contains("Weapon")) return;
-            var crate = GetRandomWeapon(__instance.spawnableCrateReference.Crate.Tags);
-            if (crate == null) return;
-            var crateRef = new SpawnableCrateReference(crate.Barcode);
-            __instance.spawnable.crateRef = crateRef;
-        }
-    }
-    
-    [HarmonyPatch(typeof(SpawnableCratePlacer))]
-    private static class CratePlaced
-    {
-        // ReSharper disable once InconsistentNaming, harmony will fuck up if its not specifcally __instance
-        [HarmonyPrefix]
-        [HarmonyPatch(nameof(SpawnableCratePlacer.RePlaceSpawnable))]
-        private static void Prefix(SpawnableCratePlacer __instance)
-        {
-            if (InFusionLobby()) return;
-            if (!Preferences.RandomizeWeapons.Value) return;
-            if (!__instance.spawnableCrateReference.Crate.Tags.Contains("Weapon")) return;
-            var crate = GetRandomWeapon(__instance.spawnableCrateReference.Crate.Tags);
-            if (crate == null) return;
-            var crateRef = new SpawnableCrateReference(crate.Barcode);
-            __instance.spawnable.crateRef = crateRef;
+            if (!Preferences.RandomizeWeapons.Value) return true;
+            if (InFusionLobby()) return true;
+            // ReSharper disable once ConvertIfStatementToReturnStatement
+            if (!poolee.spawnableCrate.Tags.Contains("Weapon")) return true;
+            return false;
         }
     }
 }

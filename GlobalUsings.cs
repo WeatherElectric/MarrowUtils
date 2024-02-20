@@ -21,3 +21,4 @@ global using TMPro;
 global using Object = UnityEngine.Object;
 global using PalletList = Il2CppSystem.Collections.Generic.List<SLZ.Marrow.Warehouse.Pallet>;
 global using CrateList = Il2CppSystem.Collections.Generic.List<SLZ.Marrow.Warehouse.Crate>;
+global using TagList = Il2CppSystem.Collections.Generic.List<string>;

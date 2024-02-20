@@ -65,4 +65,16 @@ public class Main : MelonMod
     {
         Utility.LevelUnload();
     }
+    
+    [HarmonyPatch(typeof(AssetPoolee))]
+    private static class PooleeStart
+    {
+        [HarmonyPostfix]
+        [HarmonyPatch(nameof(AssetPoolee.OnSpawn))]
+        // ReSharper disable once InconsistentNaming
+        private static void Postfix(AssetPoolee __instance)
+        {
+            Utility.SpawnablePlaced(__instance, __instance.gameObject);
+        }
+    }
 }

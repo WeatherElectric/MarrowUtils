@@ -10,6 +10,7 @@ internal class QolAssurance : Utility
     protected override void Start()
     {
         ModConsole.Msg("Loading QualityOfLifeAssurance...", 1);
+        Assets.Load();
     }
     
     protected override void CreateMenu()
@@ -19,19 +20,13 @@ internal class QolAssurance : Utility
     }
     
     #region Spawnables
-    
-    [HarmonyPatch(typeof(AssetPoolee))]
-    private static class PooleeStart
+
+    protected override void OnSpawnablePlaced(GameObject obj, AssetPoolee poolee)
     {
-        [HarmonyPostfix]
-        [HarmonyPatch(nameof(AssetPoolee.OnSpawn))]
-        private static void Postfix(AssetPoolee __instance)
-        {
-            if (!Preferences.EnableItemPatches.Value) return;
-            if (__instance.spawnableCrate.Barcode == "SLZ.BONELAB.Content.Spawnable.AlarmClock") FixAlarmClock(__instance.gameObject);
-            // if (__instance.spawnableCrate.Barcode == "c1534c5a-e55f-4b7b-bdeb-929548656164") FixHeadset(__instance.gameObject);
-            // if (__instance.spawnableCrate.Barcode == "c1534c5a-f6e1-4a7b-ab7f-3f5848656164") FixHeadset(__instance.gameObject);
-        }
+        if (!Preferences.EnableItemPatches.Value) return;
+        if (poolee.spawnableCrate.Barcode == "SLZ.BONELAB.Content.Spawnable.AlarmClock") FixAlarmClock(obj);
+        // if (__instance.spawnableCrate.Barcode == "c1534c5a-e55f-4b7b-bdeb-929548656164") FixHeadset(__instance.gameObject);
+        // if (__instance.spawnableCrate.Barcode == "c1534c5a-f6e1-4a7b-ab7f-3f5848656164") FixHeadset(__instance.gameObject);
     }
 
     private static void FixAlarmClock(GameObject obj)
